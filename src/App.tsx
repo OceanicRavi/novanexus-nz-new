@@ -553,11 +553,7 @@ function App() {
               className="group w-12 h-12 md:w-14 md:h-14 bg-white/80 backdrop-blur-sm rounded-full border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-110 hover:-translate-y-1 hover:bg-white/90 flex items-center justify-center"
             >
               <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-gray-700 group-hover:text-blue-600 transition-colors duration-300" />
-              
-              >
-                <Linkedin className="w-5 h-5 text-gray-700 group-hover:text-blue-600 transition-colors duration-300" />
               </a>
-            </div>
           </div>
         </footer>
 
