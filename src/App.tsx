@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Mail, User, MessageSquare, Send, Brain, Cog, ChevronLeft, ChevronRight, Video, Play, Mic, Eye, TrendingUp, Speech, Linkedin } from 'lucide-react';
+import { config } from './config';
 
 function App() {
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -237,42 +238,42 @@ function App() {
                   id: 0,
                   title: 'Knowledge',
                   icon: Brain,
-                  description: 'AI makes sense of overwhelming information. It connects to live data, summarizes complex documents, and delivers answers instantly, acting like a tireless digital librarian.',
+                  description: 'AI makes sense of overwhelming information.',
                   technologies: ['RAG (Retrieval-Augmented Generation)', 'Semantic Search', 'Summarization', 'Knowledge Graphs']
                 },
                 {
                   id: 1,
                   title: 'Language',
                   icon: MessageSquare,
-                  description: 'AI reads, writes, and interprets human text with fluency. From chatbots to real-time translation, it bridges communication between people and machines seamlessly.',
+                  description: 'AI reads, writes, and interprets human text with fluency.',
                   technologies: ['Natural Language Generation (NLG)', 'Machine Translation', 'Sentiment Analysis', 'Text Classification']
                 },
                 {
                   id: 2,
                   title: 'Speech',
                   icon: Mic,
-                  description: 'AI listens and speaks naturally. With accurate transcription, lifelike voices, and emotion detection, it makes technology more human and accessible.',
+                  description: 'AI listens and speaks naturally.',
                   technologies: ['ASR (Speech-to-Text)', 'TTS (Text-to-Speech)', 'Voice Cloning', 'Speech Emotion Recognition']
                 },
                 {
                   id: 3,
                   title: 'Perception',
                   icon: Eye,
-                  description: 'AI can see and understand the visual world. It recognizes objects, reads medical scans, and even generates new images and videos with precision.',
+                  description: 'AI can see and understand the visual world.',
                   technologies: ['Image Recognition', 'OCR (Optical Character Recognition)', 'Text-to-Image', 'Text-to-Video']
                 },
                 {
                   id: 4,
                   title: 'Prediction',
                   icon: TrendingUp,
-                  description: 'AI uncovers patterns hidden in data. It forecasts demand, detects fraud, and powers recommendations, offering foresight that drives smarter decisions.',
+                  description: 'AI uncovers patterns hidden in data.',
                   technologies: ['Predictive Analytics', 'Anomaly Detection', 'Recommendation Systems', 'Risk Modeling']
                 },
                 {
                   id: 5,
                   title: 'Automation',
                   icon: Cog,
-                  description: 'AI takes on repetitive work at scale. From processing documents to managing workflows, it frees people to focus on creativity, strategy, and connection.',
+                  description: 'AI takes on repetitive work at scale. ',
                   technologies: ['Intelligent Document Processing', 'RPA (Robotic Process Automation)', 'AI Agents & Orchestration', 'Conversational AI']
                 }
               ].map((capability, index) => {
@@ -295,9 +296,6 @@ function App() {
                     
                     {/* Technologies Section */}
                     <div className="mt-4">
-                      <h4 className="font-inter text-sm font-semibold text-gray-800 mb-3 uppercase tracking-wide">
-                        Technologies
-                      </h4>
                       <div className="space-y-2">
                         {capability.technologies.map((tech, techIndex) => (
                           <div key={techIndex} className="flex items-center gap-2">
@@ -361,45 +359,45 @@ function App() {
               {[
                 {
                   title: 'Event Showcase',
-                  description: 'Capture the vibrant energy of a Holi celebration in Auckland, highlighting the joyful colors, music, and dance. Showcase the cultural fusion of Indian traditions with a global audience, featuring the Mumbai Local food stall serving authentic street food. Use dynamic camera shots, slow-motion color bursts, and upbeat festival music to create an immersive experience',
-                  video: 'https://images.pexels.com/photos/3571551/pexels-photo-3571551.jpeg?auto=compress&cs=tinysrgb&w=800',
-                  thumbnail: 'https://images.pexels.com/photos/3571551/pexels-photo-3571551.jpeg?auto=compress&cs=tinysrgb&w=400',
+                  description: 'Capture the vibrant energy of a Holi celebration in Auckland, highlighting the joyful colors, music, and dance. Showcase the cultural fusion of Indian traditions with a global audience, featuring the Mumbai Local food stall serving authentic street food. Use dynamic camera shots, slow-motion color bursts, and upbeat festival music to create an immersive experience.',
+                  video: `${config.baseUri.textToVideoBucket}/mumbailocal.mp4`,
+                  thumbnail: `${config.baseUri.textToVideoBucket}/mumbailocal_thumbnail.png`,
                   examples: ['Tourism', 'Public awareness', 'Government campaigns', 'Event promotions']
                 },
                 {
                   title: 'Brand Marketing',
-                  description: 'Produce an electrifying promotional video showcasing cutting-edge solutions. Use high-energy transitions, sharp typography, and animated graphics to highlight brand expertise, testimonials, and real-world success stories. Finish with a compelling call-to-action to boost engagement',
-                  video: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800',
-                  thumbnail: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400',
+                  description: 'Produce an electrifying promotional video showcasing cutting-edge solutions. Use high-energy transitions, sharp typography, and animated graphics to highlight brand expertise, testimonials, and real-world success stories. Finish with a compelling call-to-action to boost engagement.',
+                  video: `${config.baseUri.textToVideoBucket}/1shotBuilders.mp4`,
+                  thumbnail: `${config.baseUri.textToVideoBucket}/1shotbuilders_thumbnail.png`,
                   examples: ['Product launches', 'Investor pitches', 'Trade shows', 'E-commerce']
                 },
                 {
                   title: 'Interactive Content',
-                  description: 'Bring the prehistoric era to life with an animated scene featuring dinosaurs in action. Use vibrant colors, engaging movements, and realistic sounds to create an entertaining yet educational experience. Suitable for kids, gaming content, or themed attraction promos',
-                  video: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
-                  thumbnail: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=400',
+                  description: 'Bring the prehistoric era to life with an animated scene featuring dinosaurs in action. Use vibrant colors, engaging movements, and realistic sounds to create an entertaining yet educational experience. Suitable for kids, gaming content, or themed attraction promos.',
+                  video: `${config.baseUri.textToVideoBucket}/dinosaurs.mp4`,
+                  thumbnail: `${config.baseUri.textToVideoBucket}/dinosaur_thumbnail.png`,
                   examples: ['Kids education', 'How-to Guides', 'VR/AR experiences', 'Trailers & Teasers']
                 },
                 {
                   title: 'Educational Content',
-                  description: 'Create a visually immersive medical animation highlighting anatomical structures. Use a mix of 3D models, overlays, and real-world comparisons to explain complex concepts. End with practical applications and self-diagnosis techniques for enhanced learning',
-                  video: 'https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=800',
-                  thumbnail: 'https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=400',
+                  description: 'Create a visually immersive medical animation highlighting anatomical structures. Use a mix of 3D models, overlays, and real-world comparisons to explain complex concepts. End with practical applications and self-diagnosis techniques for enhanced learning.',
+                  video: `${config.baseUri.textToVideoBucket}/medical.mp4`,
+                  thumbnail: `${config.baseUri.textToVideoBucket}/medical_thumbnail.png`,
                   examples: ['Course Modules', 'Medical training', 'Concept Explainers', 'Fitness science', 'Awareness Campaigns']
                 },
                 {
                   title: 'Personal Branding',
-                  description: 'Craft an engaging podcast visual for influencers discussing deep and meaningful conversations. Use smooth text animations, dynamic audio waveforms, and a cinematic color palette to enhance storytelling. Perfect for thought leaders and social media engagement',
-                  video: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800',
-                  thumbnail: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=400',
+                  description: 'Craft an engaging podcast visual for influencers discussing deep and meaningful conversations. Use smooth text animations, dynamic audio waveforms, and a cinematic color palette to enhance storytelling. Perfect for thought leaders and social media engagement.',
+                  video: `${config.baseUri.textToVideoBucket}/behkibatein.mp4`,
+                  thumbnail: `${config.baseUri.textToVideoBucket}/behkibatein_thumbnail.png`,
                   examples: ['Podcast', 'Storytelling', 'Customer Stories', 'Lyric videos']
                 },
                 {
-                  title: 'Corporate Training',
-                  description: 'Develop comprehensive training modules with interactive elements and real-world scenarios. Combine professional narration, animated graphics, and practical demonstrations to create engaging learning experiences that improve retention and understanding',
-                  video: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800',
-                  thumbnail: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400',
-                  examples: ['Employee onboarding', 'Skills development', 'Safety training', 'Compliance modules']
+                  title: 'News Broadcasting',
+                  description: 'Create professional news broadcasts with AI anchors delivering breaking news, weather updates, and sports highlights. Perfect for media companies, corporate communications, and content creators looking to produce consistent, high-quality news content.',
+                  video: `${config.baseUri.textToVideoBucket}/anchor.mp4`,
+                  thumbnail: `${config.baseUri.textToVideoBucket}/anchor_thumbnail.png`,
+                  examples: ['Breaking News', 'Weather Reports', 'Sports Updates', 'Viral Clips', 'Brand Yourself']
                 }
               ].map((category, index) => (
                 <div
