@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Mail, User, MessageSquare, Send, Brain, Cog, ChevronLeft, ChevronRight, Video, Play, Mic, Eye, TrendingUp, Speech } from 'lucide-react';
+import { ArrowRight, Mail, User, MessageSquare, Send, Brain, Cog, ChevronLeft, ChevronRight, Video, Play, Mic, Eye, TrendingUp, Speech, Linkedin } from 'lucide-react';
 
 function App() {
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -542,8 +542,24 @@ function App() {
           </div>
         </section>
 
-        {/* Bottom spacing */}
-        <div className="h-24 md:h-32"></div>
+        {/* Footer */}
+        <footer className="relative px-6 py-8 md:py-12">
+          {/* LinkedIn Icon - Bottom Right */}
+          <div className="fixed bottom-6 right-6 z-50">
+            <a 
+              href="#" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group w-12 h-12 md:w-14 md:h-14 bg-white/80 backdrop-blur-sm rounded-full border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-110 hover:-translate-y-1 hover:bg-white/90 flex items-center justify-center"
+            >
+              <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-gray-700 group-hover:text-blue-600 transition-colors duration-300" />
+              
+              >
+                <Linkedin className="w-5 h-5 text-gray-700 group-hover:text-blue-600 transition-colors duration-300" />
+              </a>
+            </div>
+          </div>
+        </footer>
 
         {/* Apple-style Modal */}
         {selectedDemo && (
