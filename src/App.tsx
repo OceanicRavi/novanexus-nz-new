@@ -545,8 +545,8 @@ function App() {
         {/* Footer */}
         <footer className="relative px-6 py-8 md:py-12">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-            {/* Copyright - Center on mobile, left on desktop */}
-            <div className="flex-1 text-center md:text-left mb-4 md:mb-0">
+            {/* Copyright - Centered */}
+            <div className="flex-1 text-center mb-4 md:mb-0">
               <p className="font-inter text-sm text-gray-500">
                 © 2025 Nova Nexus. All rights reserved.
               </p>
@@ -563,17 +563,6 @@ function App() {
                 <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-blue-600 group-hover:text-blue-700 transition-colors duration-300" />
               </a>
             </div>
-          </div>
-          {/* LinkedIn Icon - Bottom Right */}
-          <div className="fixed bottom-6 right-6 z-50">
-            <a 
-              href="#" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group w-12 h-12 md:w-14 md:h-14 bg-white/80 backdrop-blur-sm rounded-full border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-110 hover:-translate-y-1 hover:bg-white/90 flex items-center justify-center"
-            >
-              <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-gray-700 group-hover:text-blue-600 transition-colors duration-300" />
-              </a>
           </div>
         </footer>
 
