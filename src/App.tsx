@@ -758,7 +758,7 @@ function App() {
             {/* LinkedIn Icon - Bottom right */}
             <div className="flex justify-center md:justify-end">
               <a 
-                href="#" 
+                href="https://www.linkedin.com/in/ravi-bhatt-219a10ab/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group w-10 h-10 md:w-12 md:h-12 bg-white/80 backdrop-blur-sm rounded-full border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-white/90 flex items-center justify-center"
