@@ -4,7 +4,15 @@ import { config } from './config';
 
 function App() {
   const scrollRef = React.useRef<HTMLDivElement>(null);
-  const [selectedDemo, setSelectedDemo] = React.useState<typeof demos[0] | null>(null);
+  const [selectedDemo, setSelectedDemo] = React.useState<typeof aiCapabilities[0] | null>(null);
+  const [playingVideo, setPlayingVideo] = React.useState<number | null>(null);
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitStatus, setSubmitStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -15,6 +23,47 @@ function App() {
   const scrollRight = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: 400, behavior: 'smooth' });
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch(config.contact.apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          to: config.contact.email
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -126,7 +175,7 @@ function App() {
         <section className="px-6 pt-32 md:pt-40 lg:pt-48 pb-8 md:pb-12">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="font-playfair text-4xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-4 leading-tight">
-              Don’t Miss Out on the 
+              Don't Miss Out on the 
               <span className="block bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
                 AI Revolution
               </span>
@@ -315,11 +364,11 @@ function App() {
             {/* Subheadline */}
             <div className="text-center mt-12 md:mt-16">
               <h2 className="font-playfair text-2xl md:text-3xl lg:text-4xl font-medium text-gray-800 mb-6 leading-tight">
-                Reimagine what’s possible with 
+                Reimagine what's possible with 
                 <span className="italic text-gray-600"> AI</span>
               </h2>
               <p className="font-inter text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
-                I’m deeply passionate about exploring and experimenting with AI. My goal is simple: to genuinely help you harness this technology to grow, succeed, and unlock new opportunities. 
+                I'm deeply passionate about exploring and experimenting with AI. My goal is simple: to genuinely help you harness this technology to grow, succeed, and unlock new opportunities. 
               </p>
 
               {/* CTA Button */}
@@ -346,7 +395,7 @@ function App() {
               <div className="flex items-center justify-center mb-6">
                 <Speech className="w-8 h-8 md:w-10 md:h-10 text-gray-700 mr-4" />
                 <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900">
-                  Don’t just take my word for it
+                  Don't just take my word for it
                 </h2>
               </div>
               <p className="font-inter text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -362,42 +411,48 @@ function App() {
                   description: 'Capture the vibrant energy of a Holi celebration in Auckland, highlighting the joyful colors, music, and dance. Showcase the cultural fusion of Indian traditions with a global audience, featuring the Mumbai Local food stall serving authentic street food. Use dynamic camera shots, slow-motion color bursts, and upbeat festival music to create an immersive experience.',
                   video: `${config.baseUri.textToVideoBucket}/mumbailocal.mp4`,
                   thumbnail: `${config.baseUri.textToVideoBucket}/mumbailocal_thumbnail.png`,
-                  examples: ['Tourism', 'Public awareness', 'Government campaigns', 'Event promotions']
+                  examples: ['Tourism', 'Public awareness', 'Government campaigns', 'Event promotions'],
+                  layout: 'portrait'
                 },
                 {
                   title: 'Brand Marketing',
                   description: 'Produce an electrifying promotional video showcasing cutting-edge solutions. Use high-energy transitions, sharp typography, and animated graphics to highlight brand expertise, testimonials, and real-world success stories. Finish with a compelling call-to-action to boost engagement.',
                   video: `${config.baseUri.textToVideoBucket}/1shotBuilders.mp4`,
                   thumbnail: `${config.baseUri.textToVideoBucket}/1shotbuilders_thumbnail.png`,
-                  examples: ['Product launches', 'Investor pitches', 'Trade shows', 'E-commerce']
+                  examples: ['Product launches', 'Investor pitches', 'Trade shows', 'E-commerce'],
+                  layout: 'portrait'
                 },
                 {
                   title: 'Interactive Content',
                   description: 'Bring the prehistoric era to life with an animated scene featuring dinosaurs in action. Use vibrant colors, engaging movements, and realistic sounds to create an entertaining yet educational experience. Suitable for kids, gaming content, or themed attraction promos.',
                   video: `${config.baseUri.textToVideoBucket}/dinosaurs.mp4`,
                   thumbnail: `${config.baseUri.textToVideoBucket}/dinosaur_thumbnail.png`,
-                  examples: ['Kids education', 'How-to Guides', 'VR/AR experiences', 'Trailers & Teasers']
+                  examples: ['Kids education', 'How-to Guides', 'VR/AR experiences', 'Trailers & Teasers'],
+                  layout: 'portrait'
                 },
                 {
                   title: 'Educational Content',
                   description: 'Create a visually immersive medical animation highlighting anatomical structures. Use a mix of 3D models, overlays, and real-world comparisons to explain complex concepts. End with practical applications and self-diagnosis techniques for enhanced learning.',
                   video: `${config.baseUri.textToVideoBucket}/medical.mp4`,
                   thumbnail: `${config.baseUri.textToVideoBucket}/medical_thumbnail.png`,
-                  examples: ['Course Modules', 'Medical training', 'Concept Explainers', 'Fitness science', 'Awareness Campaigns']
+                  examples: ['Course Modules', 'Medical training', 'Concept Explainers', 'Fitness science', 'Awareness Campaigns'],
+                  layout: 'portrait'
                 },
                 {
                   title: 'Personal Branding',
                   description: 'Craft an engaging podcast visual for influencers discussing deep and meaningful conversations. Use smooth text animations, dynamic audio waveforms, and a cinematic color palette to enhance storytelling. Perfect for thought leaders and social media engagement.',
                   video: `${config.baseUri.textToVideoBucket}/behkibatein.mp4`,
                   thumbnail: `${config.baseUri.textToVideoBucket}/behkibatein_thumbnail.png`,
-                  examples: ['Podcast', 'Storytelling', 'Customer Stories', 'Lyric videos']
+                  examples: ['Podcast', 'Storytelling', 'Customer Stories', 'Lyric videos'],
+                  layout: 'portrait'
                 },
                 {
                   title: 'News Broadcasting',
                   description: 'Create professional news broadcasts with AI anchors delivering breaking news, weather updates, and sports highlights. Perfect for media companies, corporate communications, and content creators looking to produce consistent, high-quality news content.',
                   video: `${config.baseUri.textToVideoBucket}/anchor.mp4`,
                   thumbnail: `${config.baseUri.textToVideoBucket}/anchor_thumbnail.png`,
-                  examples: ['Breaking News', 'Weather Reports', 'Sports Updates', 'Viral Clips', 'Brand Yourself']
+                  examples: ['Breaking News', 'Weather Reports', 'Sports Updates', 'Viral Clips', 'Brand Yourself'],
+                  layout: 'portrait'
                 }
               ].map((category, index) => (
                 <div
@@ -432,15 +487,127 @@ function App() {
                     {/* Video Preview Section */}
                     <div className="p-4 md:p-6 flex justify-center items-center">
                       <div className="relative aspect-[9/16] w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px]">
-                        <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg border border-gray-200 group-hover:shadow-xl transition-shadow duration-300">
+                        {playingVideo === index ? (
+                          // Video Player
+                          <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                            <video
+                              src={category.video}
+                              controls
+                              autoPlay
+                              className="w-full h-full object-cover"
+                              onEnded={() => setPlayingVideo(null)}
+                            >
+                              Your browser does not support the video tag.
+                            </video>
+                            {/* Close Button */}
+                            <button
+                              onClick={() => setPlayingVideo(null)}
+                              className="absolute top-2 left-2 w-6 h-6 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-black/80 transition-all duration-200"
+                            >
+                              <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                        ) : (
+                          // Thumbnail
+                          <div 
+                            className="relative w-full h-full rounded-xl overflow-hidden shadow-lg border border-gray-200 group-hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                            onClick={() => setPlayingVideo(index)}
+                          >
+                            <img
+                              src={category.thumbnail}
+                              alt={category.title}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            {/* Play Button Overlay */}
+                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200">
+                                <Play className="w-5 h-5 text-gray-800 ml-0.5" />
+                              </div>
+                            </div>
+                            {/* Video Badge */}
+                            <div className="absolute top-2 right-2">
+                              <div className="w-6 h-6 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm">
+                                <Video className="w-3 h-3 text-gray-700" />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Marketing Communications - Landscape Video */}
+            <div className="mt-8">
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden hover:shadow-2xl hover:bg-white/70 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
+                <div className="flex flex-col lg:flex-row">
+                  {/* Content Section */}
+                  <div className="p-6 md:p-8 lg:w-2/3 flex flex-col">
+                    <h4 className="font-playfair text-xl md:text-2xl font-semibold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors duration-300">
+                      Marketing Communications
+                    </h4>
+                    <div className="relative mb-6 flex-1">
+                      <span className="absolute -left-2 -top-1 text-3xl font-bold text-gray-400 font-playfair">"</span>
+                      <p className="font-inter text-sm md:text-base text-gray-600 leading-relaxed px-4">
+                        Small switch, big eco win — these KiwiGreen bags crushed my avocado test and ditched the plastic!
+                      </p>
+                      <span className="absolute -right-2 -bottom-1 text-3xl font-bold text-gray-400 font-playfair">"</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {['Business Reports', 'Company Updates', 'User-Generated Content ads'].map((example, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs md:text-sm font-inter font-medium hover:bg-gray-200 transition-colors duration-200"
+                        >
+                          {example}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Landscape Video Section */}
+                  <div className="lg:w-1/3 p-4 md:p-6 flex justify-center items-center">
+                    <div className="relative w-full">
+                      {playingVideo === 6 ? (
+                        // Video Player
+                        <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                          <video
+                            src={`${config.baseUri.textToVideoBucket}/market.mp4`}
+                            controls
+                            autoPlay
+                            className="w-full h-full object-cover"
+                            onEnded={() => setPlayingVideo(null)}
+                          >
+                            Your browser does not support the video tag.
+                          </video>
+                          {/* Close Button */}
+                          <button
+                            onClick={() => setPlayingVideo(null)}
+                            className="absolute top-2 left-2 w-6 h-6 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-black/80 transition-all duration-200"
+                          >
+                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      ) : (
+                        // Thumbnail
+                        <div 
+                          className="relative aspect-video w-full rounded-xl overflow-hidden shadow-lg border border-gray-200 group-hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                          onClick={() => setPlayingVideo(6)}
+                        >
                           <img
-                            src={category.thumbnail}
-                            alt={category.title}
+                            src={`${config.baseUri.textToVideoBucket}/market_thumbnail.png`}
+                            alt="Marketing Communications"
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                           {/* Play Button Overlay */}
                           <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200 cursor-pointer">
+                            <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200">
                               <Play className="w-5 h-5 text-gray-800 ml-0.5" />
                             </div>
                           </div>
@@ -451,11 +618,11 @@ function App() {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
 
             {/* CTA Section */}
@@ -486,7 +653,7 @@ function App() {
 
             {/* Contact Form */}
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl border border-white/20 p-8 md:p-10">
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Field */}
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -494,7 +661,11 @@ function App() {
                   </div>
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Your Name"
+                    required
                     className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-xl font-inter text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900 transition-all duration-300"
                   />
                 </div>
@@ -506,7 +677,11 @@ function App() {
                   </div>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="Your Email"
+                    required
                     className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-xl font-inter text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900 transition-all duration-300"
                   />
                 </div>
@@ -517,19 +692,49 @@ function App() {
                     <MessageSquare className="h-5 w-5 text-gray-400" />
                   </div>
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     rows={5}
                     placeholder="Tell us about your project..."
+                    required
                     className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-xl font-inter text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900 transition-all duration-300 resize-none"
                   ></textarea>
                 </div>
 
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                    <p className="text-green-800 font-inter text-sm">
+                      ✅ Message sent successfully! We'll get back to you soon.
+                    </p>
+                  </div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                    <p className="text-red-800 font-inter text-sm">
+                      ❌ Failed to send message. Please try again or email us directly at {config.contact.email}
+                    </p>
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="group relative w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-gray-900 to-black text-white font-inter font-medium px-8 py-4 rounded-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
+                  disabled={isSubmitting}
+                  className="group relative w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-gray-900 to-black text-white font-inter font-medium px-8 py-4 rounded-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0"
                 >
-                  <span className="relative z-10">Send Message</span>
-                  <Send className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                  <span className="relative z-10">
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </span>
+                  {isSubmitting ? (
+                    <div className="w-5 h-5 relative z-10 animate-spin">
+                      <div className="w-full h-full border-2 border-white/30 border-t-white rounded-full"></div>
+                    </div>
+                  ) : (
+                    <Send className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                  )}
                   
                   {/* Hover glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl scale-150"></div>

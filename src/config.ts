@@ -22,5 +22,10 @@ export const config = {
       ragWebhook: import.meta.env.VITE_RAG_WEBHOOK|| 'url to n8n RAG webhook',
       aiVoiceBucket: import.meta.env.VITE_VOICE_BUCKET|| 'url to cloudfare AI Voice bucket'
     },
+
+    contact: {
+      apiEndpoint: import.meta.env.VITE_CONTACT_API_ENDPOINT || '/api/contact',
+      email: 'contact@novanexus.nz'
+    },
   };
   
