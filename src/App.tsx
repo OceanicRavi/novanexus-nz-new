@@ -643,7 +643,7 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <p className="font-inter text-sm md:text-base text-gray-500 mb-8 tracking-wide">
-                Trusted by forward-thinking organizations
+                Trusted by forward-thinking clients
               </p>
             </div>
 
